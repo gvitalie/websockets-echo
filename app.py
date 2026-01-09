@@ -5,6 +5,7 @@ import http
 import os
 import signal
 
+import websockets
 from websockets.asyncio.server import serve
 
 # This will hold all active WebSocket connections
