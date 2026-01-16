@@ -31,7 +31,8 @@ async def echo(websocket):
         pass
     finally:
         # Unregister the client when disconnected
-        clients.remove(websocket)
+        if websocket in clients:
+            clients.remove(websocket)
 
 def health_check(connection, request):
     if request.path == "/healthz":
