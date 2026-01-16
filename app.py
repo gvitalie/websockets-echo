@@ -13,12 +13,16 @@ from websockets.asyncio.server import serve
 clients = set()
 
 async def echo(websocket):
-    # Register the new client
-    clients.add(websocket)
     try:
         async for message in websocket:
-            # data = json.loads(message)
-            # if not data.get("password"): continue
+
+            data = json.loads(message)
+            if data.get('password') and websocket not in clients:
+                # Register the new client
+                clients.add(websocket)
+            else:
+                continue
+
             # Broadcast the message to all other connected clients
             for client in clients:
                 if client != websocket:  # Don't send the message back to the sender
