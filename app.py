@@ -5,6 +5,7 @@ import http
 import os
 import signal
 import json
+import math
 
 import websockets
 from websockets.asyncio.server import serve
@@ -17,7 +18,7 @@ async def echo(websocket):
         async for message in websocket:
 
             data = json.loads(message)
-            if data.get('password') and websocket not in clients:
+            if data.get('password') == str(math.pi) and websocket not in clients:
                 clients.add(websocket)
             if not data.get('password') and websocket in clients:
                 clients.remove(websocket)
