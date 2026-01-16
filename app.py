@@ -17,8 +17,8 @@ async def echo(websocket):
     clients.add(websocket)
     try:
         async for message in websocket:
-            data = json.loads(message)
-            if not data.get("password"): continue
+            # data = json.loads(message)
+            # if not data.get("password"): continue
             # Broadcast the message to all other connected clients
             for client in clients:
                 if client != websocket:  # Don't send the message back to the sender
