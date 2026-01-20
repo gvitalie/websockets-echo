@@ -22,7 +22,7 @@ async def echo(websocket):
                 clients.add(websocket)
             if not data.get('password') and websocket in clients:
                 clients.remove(websocket)
-            if not data.get('password'): continue
+            if not data.get('password') or not data.get('message'): continue
 
             # Broadcast the message to all other connected clients
             for client in clients:
