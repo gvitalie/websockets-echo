@@ -41,10 +41,13 @@ def health_check(connection, request):
 
 async def main():
     port = int(os.environ["PORT"])
-    async with serve(echo, "", port, process_request=health_check, subprotocols=["permessage-deflate"],) as server:
+    async with serve(echo, "", port, process_request=health_check,) as server:
         loop = asyncio.get_running_loop()
         loop.add_signal_handler(signal.SIGTERM, server.close)
         await server.wait_closed()
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        print('Stop')
